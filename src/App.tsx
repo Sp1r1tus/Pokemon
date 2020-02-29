@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import Axios from 'axios';
 import PokemonList from './Components/PokemonList/PokemonList';
+import { BrowserRouter, Route } from 'react-router-dom';
+import DetailView from './Components/DetailView/DetailView';
 
-const API_URL = 'http://pokeapi.co/api/v2/pokemon/'
+const API_URL = 'http://pokeapi.co/api/v2/pokemon/';
 
 function App() {
   const [pokemons, setPokemons] = useState([]);
@@ -16,7 +18,10 @@ function App() {
   }, []);
   return (
     <div>
-      <PokemonList pokemons={pokemons}/>
+      <BrowserRouter>
+        <Route exact={true} path='/'><PokemonList pokemons={pokemons}/></Route>
+        <Route path='/:name' exact component={DetailView}/>
+      </BrowserRouter>
     </div>
   );
 }

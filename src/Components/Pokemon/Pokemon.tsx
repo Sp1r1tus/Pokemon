@@ -1,5 +1,7 @@
 import React from 'react';
 import { IPokemon } from '../../../models/models';
+import { Link } from 'react-router-dom';
+
 import './Pokemon.css';
 
 interface IPokemonProps {
@@ -11,7 +13,7 @@ const Pokemon: React.FC <IPokemonProps> = ({ pokemon }) => {
     return (
         <>
             <div className='pokemon-item'>
-                {pokemon.name}
+                <Link to={`/${pokemon.name}`}>{pokemon.name}</Link>
             </div>
         </>
     );
