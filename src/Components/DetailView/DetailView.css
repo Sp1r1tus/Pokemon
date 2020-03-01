@@ -11,9 +11,18 @@ h1 {
 }
 
 .detail-property {
-    margin-right: 100px;
+    margin-right: 10px;
     display: inline-flex;
     flex-direction: column;
     justify-content: space-between;
-    
+}
+
+.detail-property:nth-last-of-type(1) {
+    margin-right: 0;
+}
+
+.detail-order {
+    font-size: 16px;
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 5px 0;
 }

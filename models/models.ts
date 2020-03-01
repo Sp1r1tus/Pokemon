@@ -1,3 +1,12 @@
+export interface IPokemonStats {
+    stat: {
+        name: string;
+        url: string;
+    },
+    base_stat: number;
+    effort: number;
+}
+
 export interface IPokemonAbilities {
     ability: {
         name: string;

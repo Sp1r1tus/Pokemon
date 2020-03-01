@@ -1,20 +1,20 @@
-.type {
+.stats {
     font-size: 16px;
     font-family: Arial, Helvetica, sans-serif;
     padding: 15px;
 }
 
-.type:nth-child(even) {
+.stats:nth-child(even) {
     background-color: ghostwhite;
     box-shadow: 0 0 20px ghostwhite;
     border-radius: 10px;
 }
 
-.type-static {
-    width: 70px;
+.stats-static {
     padding:2px;
     display: inline-block;
 }
+
 
 .dots {
     background-color: green;
