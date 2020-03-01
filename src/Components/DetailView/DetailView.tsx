@@ -1,10 +1,11 @@
 import React, {useEffect, useState, Suspense, lazy} from 'react';
 import { match } from 'react-router-dom'
 import Axios from 'axios';
-import { IPokemon, IPokemonAbilities, IPokemonPicture } from '../../../models/models';
+import { IPokemon, IPokemonAbilities, IPokemonPicture, IPokemonTypes } from '../../../models/models';
 import Config from '../../config.json';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Ability from '../Ability/Ability';
+import Type from '../Type/Type';
 
 import './DetailView.css';
 
@@ -18,6 +19,7 @@ interface IDetailViewProps {
 const DetailView: React.FC <IDetailViewProps> = ({ match }) => {
     const [pokemonPicture, setPokemonPicture] = useState(undefined);
     const [pokemonAbilities, setPokemonAbilities] = useState([]);
+    const [pokemonTypes, setPokemonTypes] = useState([]);
 
     const emptyObject: IPokemonPicture = {
       back_default: '',
@@ -35,6 +37,7 @@ const DetailView: React.FC <IDetailViewProps> = ({ match }) => {
         const ResponseDetails = await Axios.get(`${Config.API_URL}${match.params.name}`);
         setPokemonPicture(ResponseDetails.data.sprites)
         setPokemonAbilities(ResponseDetails.data.abilities);
+        setPokemonTypes(ResponseDetails.data.types);
       };
       loadDetails();   
     }, [match.params.name]);
@@ -45,13 +48,25 @@ const DetailView: React.FC <IDetailViewProps> = ({ match }) => {
             <Suspense fallback={<div><CircularProgress /></div>}>
                 <Image pictures={pokemonPicture || emptyObject} />
             </Suspense>
-            <h2>Abilities</h2>
-            {pokemonAbilities.map((item: IPokemonAbilities, index: number) => {
-            return <Ability
-              key={index}
-              ability={item}
-            />;
-          })}
+            <div className='detail-property'>
+              <h2>Abilities</h2>
+              {pokemonAbilities.map((item: IPokemonAbilities, index: number) => {
+              return <Ability
+                key={index}
+                ability={item}
+              />;
+              })}
+            </div>
+            <div className='detail-property'>            
+              <h2>Types</h2>
+              {pokemonTypes.map((item: IPokemonTypes, index: number) => {
+              return <Type
+                key={index}
+                type={item}
+              />;
+              })}
+            </div>
+
         </div>
     );
 }

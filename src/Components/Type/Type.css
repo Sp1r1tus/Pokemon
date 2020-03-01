@@ -1,11 +1,11 @@
-.ability {
+.type {
     border-top: 1px solid gray;
     font-size: 16px;
     font-family: Arial, Helvetica, sans-serif;
     padding: 5px 0;
 }
 
-.ability-static {
+.type-static {
     width: 70px;
     padding:2px;
     display: inline-block;

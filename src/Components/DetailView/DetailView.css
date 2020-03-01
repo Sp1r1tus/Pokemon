@@ -9,3 +9,11 @@
 h1 {
     text-align: center;
 }
+
+.detail-property {
+    margin-right: 100px;
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: space-between;
+    
+}
