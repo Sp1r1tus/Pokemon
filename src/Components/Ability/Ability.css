@@ -1,0 +1,22 @@
+.ability {
+    width: 35%;
+    border-top: 1px solid gray;
+    font-size: 16px;
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 5px 0;
+}
+
+.ability-static {
+    width: 70px;
+    padding:2px;
+    display: inline-block;
+}
+
+.dots {
+    background-color: green;
+    width: 13px;
+    height: 13px;
+    border-radius: 15px;
+    display: inline-block;
+    margin: 0 5px 0 2px;
+}

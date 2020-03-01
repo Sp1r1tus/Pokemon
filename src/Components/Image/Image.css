@@ -1,0 +1,14 @@
+.image {
+    margin: 0 35px;
+    vertical-align: middle;
+}
+.carousel-container {
+    width: 500px;
+}   
+.react-multiple-carousel__arrow--left {
+    left: 0;
+}
+
+.react-multiple-carousel__arrow--right {
+    right: 0;
+}
