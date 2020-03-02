@@ -10,6 +10,7 @@ interface ITypesProps {
 const Type: React.FC <ITypesProps> = ({ type }) => {
     const howManyDots = () => {
         let result: React.ReactElement[] = [];
+        for (let i = 0; i < type.slot; i++) {
             result.push(<div className='dots' key={i}/>);
         }
         return(result)

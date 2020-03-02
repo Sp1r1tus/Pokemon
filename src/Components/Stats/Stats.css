@@ -10,6 +10,13 @@
     border-radius: 10px;
 }
 
+.stats:nth-child(odd) {
+    background-color: lavender;
+    box-shadow: 0 0 20px lavender;
+    border-radius: 10px;
+    margin: 10px 0;
+}
+
 .stats-static {
     padding:2px;
     display: inline-block;

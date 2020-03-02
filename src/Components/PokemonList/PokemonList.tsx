@@ -10,6 +10,7 @@ const PokemonList: React.FC <IPokemonListProps> = ({ pokemons }) => {
     if (pokemons) {
       return (
         <>
+          <h1>List of all Pokemons</h1>
           {pokemons.map((item: IPokemon, index: number) => {
             return <Pokemon
               key={index}

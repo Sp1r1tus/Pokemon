@@ -3,23 +3,12 @@ import { match } from 'react-router-dom'
 import Axios from 'axios';
 import { IPokemon, IPokemonAbilities, IPokemonPicture, IPokemonTypes, IPokemonStats, IPokemonMoves } from '../../../models/models';
 import Config from '../../config.json';
-import {CircularProgress, Select } from '@material-ui/core';
+import {CircularProgress } from '@material-ui/core';
 import Ability from '../Ability/Ability';
 import Type from '../Type/Type';
 import Stats from '../Stats/Stats';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 
 import './DetailView.css';
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    select: {
-        '& > *': {
-          height: '400px'
-        }
-      },
-  }),
-);
 
 const Image = lazy(() => import('../Image/Image'))
 
@@ -28,12 +17,12 @@ interface IDetailViewProps {
 }
 
 const DetailView: React.FC <IDetailViewProps> = ({ match }) => {
-    const [pokemonPicture, setPokemonPicture] = useState(undefined);
-    const [pokemonAbilities, setPokemonAbilities] = useState([]);
-    const [pokemonTypes, setPokemonTypes] = useState([]);
-    const [pokemonOrder, setPokemonOrder] = useState('');
-    const [pokemonStats, setPokemonStats] = useState([]);
-    const [pokemonMoves, setPokemonMoves] = useState([]);
+    const [pokemonPicture, setPokemonPicture] = useState<IPokemonPicture>({});
+    const [pokemonAbilities, setPokemonAbilities] = useState<IPokemonAbilities[]>([]);
+    const [pokemonTypes, setPokemonTypes] = useState<IPokemonTypes[]>([]);
+    const [pokemonOrder, setPokemonOrder] = useState<string>('');
+    const [pokemonStats, setPokemonStats] = useState<IPokemonStats[]>([]);
+    const [pokemonMoves, setPokemonMoves] = useState<IPokemonMoves[]>([]);
     const emptyObject: IPokemonPicture = {
       back_default: '',
       back_female: '',
@@ -58,14 +47,31 @@ const DetailView: React.FC <IDetailViewProps> = ({ match }) => {
       loadDetails();   
     }, [match.params.name]);
 
-    const classes = useStyles();
-
     return (
         <div className='detail-card'> 
           <h1>{match.params.name.toLocaleUpperCase()}</h1>
           <Suspense fallback={<div><CircularProgress /></div>}>
               <Image pictures={pokemonPicture || emptyObject} />
           </Suspense>
+          <section className='detail-property'>            
+            <h2>Moves</h2>
+            <ul className='detail-moves'>
+              {pokemonMoves.map((item: IPokemonMoves, index: number) => (
+                <li key={index} value={item.move.name}>
+                  {item.move.name}
+                </li>
+              ))}
+            </ul>
+          </section>
+          <section className='detail-property'>            
+            <h2>Stats</h2>
+            {pokemonStats.map((item: IPokemonStats, index: number) => {
+            return <Stats
+              key={index}
+              stats={item}
+            />;
+            })}
+          </section>
           <section className='detail-property'>
             <h2>Abilities</h2>
             {pokemonAbilities.map((item: IPokemonAbilities, index: number) => {
@@ -83,29 +89,6 @@ const DetailView: React.FC <IDetailViewProps> = ({ match }) => {
               type={item}
             />;
             })}
-          </section>
-          <section className='detail-property'>            
-            <h2>Stats</h2>
-            {pokemonStats.map((item: IPokemonStats, index: number) => {
-            return <Stats
-              key={index}
-              stats={item}
-            />;
-            })}
-          </section>
-          <section className='detail-property'>            
-            <h2>Moves</h2>
-            <Select
-                multiple
-                native
-                className={classes.select}
-                >
-                {pokemonMoves.map((item: IPokemonMoves, index: number) => (
-                  <option key={index} value={item.move.name}>
-                    {item.move.name}
-                  </option>
-                ))}
-            </Select>
           </section>
           <div className='detail-order'>order nbr: {pokemonOrder}</div>
         </div>
