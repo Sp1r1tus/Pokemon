@@ -23,18 +23,16 @@ interface IPokemonProps {
 
 const Pokemon: React.FC <IPokemonProps> = ({ pokemon }) => {
 
-    const index = pokemon.url.split('/')[pokemon.url.split('/').length -2];
+    const id = pokemon.url.split('/')[pokemon.url.split('/').length -2];
 
     const classes = useStyles();
     return (
         <>
             <div className='pokemon-item'>
                 <Link to={`/${pokemon.name}`}>
-                  
                   <Button fullWidth={true} size='large' className={classes.button} variant="outlined">
-                 
                     {pokemon.name}
-                    <div className='pokemon-index'>nbr {index}</div>
+                    <div className='pokemon-index'>nbr {id}</div>
                   </Button>
                 </Link>
             </div>

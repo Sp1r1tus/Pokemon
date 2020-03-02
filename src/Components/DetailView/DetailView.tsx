@@ -23,35 +23,35 @@ const DetailView: React.FC <IDetailViewProps> = ({ match }) => {
     const [pokemonOrder, setPokemonOrder] = useState<string>('');
     const [pokemonStats, setPokemonStats] = useState<IPokemonStats[]>([]);
     const [pokemonMoves, setPokemonMoves] = useState<IPokemonMoves[]>([]);
-    const emptyObject: IPokemonPicture = {
-      back_default: '',
-      back_female: '',
-      back_shiny: '',
-      back_shiny_female: '',
-      front_default: '',
-      front_female: '',
-      front_shiny: '',
-      front_shiny_female: ''
-    }
-
+  
+    const [pokemonFirst, setPokemonFirst] = useState<string>('');
+    const [pokemonSecond, setPokemonSecond] = useState<string>('');
+    const [pokemonThird, setPokemonThird] = useState<string>('');
+    
     useEffect(() => {
       const loadDetails = async () => {
-        const ResponseDetails = await Axios.get(`${Config.API_URL}${match.params.name}`);
+        const ResponseDetails = await Axios.get(Config.API_URL + match.params.name);
+        const ResponseSpecies = await Axios.get(Config.API_URL_2 + match.params.name);
+        const EvolutionUrl: string = ResponseSpecies.data.evolution_chain.url
+        const ResponseEvolution: any = await Axios.get(EvolutionUrl);
+          
         setPokemonPicture(ResponseDetails.data.sprites)
         setPokemonAbilities(ResponseDetails.data.abilities);
         setPokemonTypes(ResponseDetails.data.types);
         setPokemonOrder(ResponseDetails.data.order);
         setPokemonStats(ResponseDetails.data.stats);
         setPokemonMoves(ResponseDetails.data.moves);
+        setPokemonFirst(ResponseEvolution.data.chain.species.name)
+        setPokemonSecond(ResponseEvolution.data.chain.evolves_to[0].species.name)
+        setPokemonThird(ResponseEvolution.data.chain.evolves_to[0].evolves_to[0].species.name)
       };
       loadDetails();   
     }, [match.params.name]);
-
     return (
         <div className='detail-card'> 
           <h1>{match.params.name.toLocaleUpperCase()}</h1>
           <Suspense fallback={<div><CircularProgress /></div>}>
-              <Image pictures={pokemonPicture || emptyObject} />
+              <Image pictures={pokemonPicture} />
           </Suspense>
           <section className='detail-property'>            
             <h2>Moves</h2>
@@ -89,6 +89,12 @@ const DetailView: React.FC <IDetailViewProps> = ({ match }) => {
               type={item}
             />;
             })}
+          </section>
+          <section className='detail-property'>            
+            <h2>Evolution</h2>
+            <div>{pokemonFirst}</div>
+            <div>{pokemonSecond}</div>
+            <div>{pokemonThird}</div>
           </section>
           <div className='detail-order'>order nbr: {pokemonOrder}</div>
         </div>

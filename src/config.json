@@ -1,3 +1,4 @@
 {
-    "API_URL": "http://pokeapi.co/api/v2/pokemon/"
+    "API_URL": "http://pokeapi.co/api/v2/pokemon/",
+    "API_URL_2": "https://pokeapi.co/api/v2/pokemon-species/"
   }
