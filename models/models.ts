@@ -1,3 +1,10 @@
+export interface IPokemonMoves {
+    move: {
+        name: string;
+        url: string;
+    }
+}
+
 export interface IPokemonStats {
     stat: {
         name: string;

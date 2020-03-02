@@ -1,9 +1,9 @@
 .image {
-    margin: 0 35px;
+    margin: 0 70px;
     vertical-align: middle;
 }
 .carousel-container {
-    width: 500px;
+    width: 700px;
 }   
 .react-multiple-carousel__arrow--left {
     left: 0;

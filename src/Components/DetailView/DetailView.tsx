@@ -1,15 +1,25 @@
 import React, {useEffect, useState, Suspense, lazy} from 'react';
 import { match } from 'react-router-dom'
 import Axios from 'axios';
-import { IPokemon, IPokemonAbilities, IPokemonPicture, IPokemonTypes, IPokemonStats } from '../../../models/models';
+import { IPokemon, IPokemonAbilities, IPokemonPicture, IPokemonTypes, IPokemonStats, IPokemonMoves } from '../../../models/models';
 import Config from '../../config.json';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import {CircularProgress, Select } from '@material-ui/core';
 import Ability from '../Ability/Ability';
 import Type from '../Type/Type';
 import Stats from '../Stats/Stats';
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 
 import './DetailView.css';
 
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    select: {
+        '& > *': {
+          height: '400px'
+        }
+      },
+  }),
+);
 
 const Image = lazy(() => import('../Image/Image'))
 
@@ -23,7 +33,7 @@ const DetailView: React.FC <IDetailViewProps> = ({ match }) => {
     const [pokemonTypes, setPokemonTypes] = useState([]);
     const [pokemonOrder, setPokemonOrder] = useState('');
     const [pokemonStats, setPokemonStats] = useState([]);
-
+    const [pokemonMoves, setPokemonMoves] = useState([]);
     const emptyObject: IPokemonPicture = {
       back_default: '',
       back_female: '',
@@ -43,9 +53,12 @@ const DetailView: React.FC <IDetailViewProps> = ({ match }) => {
         setPokemonTypes(ResponseDetails.data.types);
         setPokemonOrder(ResponseDetails.data.order);
         setPokemonStats(ResponseDetails.data.stats);
+        setPokemonMoves(ResponseDetails.data.moves);
       };
       loadDetails();   
     }, [match.params.name]);
+
+    const classes = useStyles();
 
     return (
         <div className='detail-card'> 
@@ -80,8 +93,20 @@ const DetailView: React.FC <IDetailViewProps> = ({ match }) => {
             />;
             })}
           </section>
-        
-
+          <section className='detail-property'>            
+            <h2>Moves</h2>
+            <Select
+                multiple
+                native
+                className={classes.select}
+                >
+                {pokemonMoves.map((item: IPokemonMoves, index: number) => (
+                  <option key={index} value={item.move.name}>
+                    {item.move.name}
+                  </option>
+                ))}
+            </Select>
+          </section>
           <div className='detail-order'>order nbr: {pokemonOrder}</div>
         </div>
     );
