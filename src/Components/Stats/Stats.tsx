@@ -10,12 +10,9 @@ interface IStatsProps {
 const Stats: React.FC <IStatsProps> = ({ stats }) => {
     const howManyDots = () => {
         let result: React.ReactElement[] = [];
-        console.log(stats.effort);
         for (let i = 0; i < stats.effort; i++) {
-            console.log(i);
             result.push(<div className='dots' key={i}/>);
         }
-        console.log(result);
         return(result)
     }
     return (

@@ -26,12 +26,9 @@ interface IAbilityProps {
 const Ability: React.FC <IAbilityProps> = ({ ability }) => {
     const howManyDots = () => {
         let result: React.ReactElement[] = [];
-        console.log(ability.slot);
         for (let i = 0; i < ability.slot; i++) {
-            console.log(i);
             result.push(<div className='dots' key={i}/>);
         }
-        console.log(result);
         return(result)
     }
     const classes = useStyles();
