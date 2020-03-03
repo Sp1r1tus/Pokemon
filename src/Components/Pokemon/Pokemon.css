@@ -1,0 +1,17 @@
+.pokemon-item {
+    padding: 10px 5px;
+    width: 290px;
+    display: inline-block;
+}
+
+.pokemon-item > * {
+    text-decoration: none;
+}
+
+.pokemon-index {
+    font-size: 10px;
+    margin-left: 20px;
+    position: absolute;
+    top: 2px;
+    right: 5px;
+}
