@@ -1,0 +1,38 @@
+.stats {
+    font-size: 16px;
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 15px;
+}
+
+.stats:nth-child(even) {
+    background-color: ghostwhite;
+    box-shadow: 0 0 20px ghostwhite;
+    border-radius: 10px;
+}
+
+.stats:nth-child(odd) {
+    background-color: lavender;
+    box-shadow: 0 0 20px lavender;
+    border-radius: 10px;
+    margin: 10px 0;
+}
+
+.stats-static {
+    width: 70px;
+    padding:2px;
+    display: inline-block;
+}
+
+
+.stats-static ~ span {
+  padding-top: 55px;
+}
+
+.dots {
+    background-color: green;
+    width: 13px;
+    height: 13px;
+    border-radius: 15px;
+    display: inline-block;
+    margin: 0 5px 0 2px;
+}
