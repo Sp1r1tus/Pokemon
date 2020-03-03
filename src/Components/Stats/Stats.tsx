@@ -2,6 +2,17 @@ import React from 'react';
 import { IPokemonStats } from '../../../models/models';
 import { Slider } from '@material-ui/core';
 import './Stats.css';
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    slider: {
+        '& > *': {
+          color: 'green'
+        }
+      },
+  }),
+);
 
 interface IStatsProps {
     stats: IPokemonStats;
@@ -15,12 +26,14 @@ const Stats: React.FC <IStatsProps> = ({ stats }) => {
         }
         return(result)
     }
+    const classes = useStyles();
     return (
         <div className='stats'>
             <div>
                 <div className='stats-static'>{stats.stat.name}</div>
                 <Slider
-                    valueLabelDisplay='auto'
+                    className={classes.slider}
+                    valueLabelDisplay='on'
                     min={0}
                     max={200}
                     step={1}

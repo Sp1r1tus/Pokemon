@@ -42,8 +42,8 @@ const DetailView: React.FC <IDetailViewProps> = ({ match }) => {
         setPokemonStats(ResponseDetails.data.stats);
         setPokemonMoves(ResponseDetails.data.moves);
         setPokemonFirst(ResponseEvolution.data.chain.species.name)
-        setPokemonSecond(ResponseEvolution.data.chain.evolves_to[0].species.name)
-        setPokemonThird(ResponseEvolution.data.chain.evolves_to[0].evolves_to[0].species.name)
+        setPokemonSecond(ResponseEvolution.data.chain.evolves_to[0]?.species.name || '')
+        setPokemonThird(ResponseEvolution.data.chain.evolves_to[0]?.evolves_to[0]?.species.name || '')
       };
       loadDetails();   
     }, [match.params.name]);
@@ -92,9 +92,11 @@ const DetailView: React.FC <IDetailViewProps> = ({ match }) => {
           </section>
           <section className='detail-property'>            
             <h2>Evolution</h2>
-            <div>{pokemonFirst}</div>
-            <div>{pokemonSecond}</div>
-            <div>{pokemonThird}</div>
+            <div className='detail-evolution'>
+             {pokemonFirst ? <div className='detail-evolution-sub'>{pokemonFirst.toLocaleUpperCase()}</div> : <></>}
+             {pokemonSecond ? <div className='detail-evolution-sub'>{pokemonSecond.toLocaleUpperCase()}</div> : <></>}
+             {pokemonThird ?<div className='detail-evolution-sub'>{pokemonThird.toLocaleUpperCase()}</div> : <></>}
+            </div>
           </section>
           <div className='detail-order'>order nbr: {pokemonOrder}</div>
         </div>

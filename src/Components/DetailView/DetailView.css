@@ -11,10 +11,17 @@
 
 h1 {
     text-align: center;
+    font-size: 32px;
+    color: #3f51b5;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 h2 {
     text-align: center;
+    font-size: 24px;
+    color: #3f51b5;
+    font-family: Arial, Helvetica, sans-serif;
+
 }
 
 .detail-property {
@@ -67,4 +74,29 @@ background: #eeeeee;
 .detail-moves::-webkit-scrollbar-thumb {
 background: green;
 border-radius: 0.6rem;
+}
+
+.detail-evolution {
+    display: flex;
+    flex-direction: row;
+    font-size: 16px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+
+.detail-evolution-sub:nth-child(even) {
+    background-color: ghostwhite;
+    box-shadow: 0 0 20px ghostwhite;
+    border-radius: 10px;
+    padding: 15px; 
+    margin: 15px; 
+}
+
+.detail-evolution-sub:nth-child(odd) {
+    background-color: lavender;
+    box-shadow: 0 0 20px lavender;
+    border-radius: 10px;
+    padding: 15px;
+    margin: 15px;
+    
 }

@@ -18,10 +18,15 @@
 }
 
 .stats-static {
+    width: 70px;
     padding:2px;
     display: inline-block;
 }
 
+
+.stats-static ~ span {
+  padding-top: 55px;
+}
 
 .dots {
     background-color: green;
