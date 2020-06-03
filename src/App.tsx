@@ -10,9 +10,9 @@ function App(): JSX.Element {
   const [pokemons, setPokemons] = useState<IPokemon[]>([]);
   useEffect(() => {
     const loadData = async () => {
-      const responseCount = await Axios.get(`${Config.API_URL}?limit=1&offset=1`);      
-      const responsePokemons = await Axios.get(`${Config.API_URL}?limit=${responseCount.data.count}&offset=0`);
-      setPokemons(responsePokemons.data.results);
+      const responseCount = await Axios.get(`${Config.API_URL}?limit=1&offset=1`);
+      Axios.get(`${Config.API_URL}?limit=${responseCount.data.count}&offset=0`)
+        .then(response => { setPokemons(response.data.results); });
     };
     loadData();
   }, []);
