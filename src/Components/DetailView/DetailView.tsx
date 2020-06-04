@@ -7,6 +7,7 @@ import {CircularProgress } from '@material-ui/core';
 import Ability from '../Ability/Ability';
 import Type from '../Type/Type';
 import Stats from '../Stats/Stats';
+import AuthContext from '../../context/auth-context';
 
 import './DetailView.css';
 
@@ -48,58 +49,64 @@ const DetailView: React.FC <IDetailViewProps> = ({ match }) => {
       loadDetails();   
     }, [match.params.name]);
     return (
-        <div className='detail-card'> 
-          <h1>{match.params.name.toLocaleUpperCase()}</h1>
-          <Suspense fallback={<div><CircularProgress /></div>}>
-              <Image pictures={pokemonPicture} />
-          </Suspense>
-          <section className='detail-property'>            
-            <h2>Moves</h2>
-            <ul className='detail-moves'>
-              {pokemonMoves.map((item: IPokemonMoves, index: number) => (
-                <li key={index} value={item.move.name}>
-                  {item.move.name}
-                </li>
-              ))}
-            </ul>
-          </section>
-          <section className='detail-property'>            
-            <h2>Stats</h2>
-            {pokemonStats.map((item: IPokemonStats, index: number) => {
-            return <Stats
-              key={index}
-              stats={item}
-            />;
-            })}
-          </section>
-          <section className='detail-property'>
-            <h2>Abilities</h2>
-            {pokemonAbilities.map((item: IPokemonAbilities, index: number) => {
-            return <Ability
-              key={index}
-              ability={item}
-            />;
-            })}
-          </section>
-          <section className='detail-property'>            
-            <h2>Types</h2>
-            {pokemonTypes.map((item: IPokemonTypes, index: number) => {
-            return <Type
-              key={index}
-              type={item}
-            />;
-            })}
-          </section>
-          <section className='detail-property'>            
-            <h2>Evolution</h2>
-            <div className='detail-evolution'>
-             {pokemonFirst ? <div className='detail-evolution-sub'>{pokemonFirst.toLocaleUpperCase()}</div> : <></>}
-             {pokemonSecond ? <div className='detail-evolution-sub'>{pokemonSecond.toLocaleUpperCase()}</div> : <></>}
-             {pokemonThird ?<div className='detail-evolution-sub'>{pokemonThird.toLocaleUpperCase()}</div> : <></>}
-            </div>
-          </section>
-          <div className='detail-order'>order nbr: {pokemonOrder}</div>
-        </div>
+      <AuthContext.Consumer>{context => context.authenticated
+      ?
+      <div className='detail-card'>
+        <h1>{match.params.name.toLocaleUpperCase()}</h1>
+        <Suspense fallback={<div><CircularProgress /></div>}>
+            <Image pictures={pokemonPicture} />
+        </Suspense>
+        <section className='detail-property'>            
+          <h2>Moves</h2>
+          <ul className='detail-moves'>
+            {pokemonMoves.map((item: IPokemonMoves, index: number) => (
+              <li key={index} value={item.move.name}>
+                {item.move.name}
+              </li>
+            ))}
+          </ul>
+        </section>
+        <section className='detail-property'>            
+          <h2>Stats</h2>
+          {pokemonStats.map((item: IPokemonStats, index: number) => {
+          return <Stats
+            key={index}
+            stats={item}
+          />;
+          })}
+        </section>
+        <section className='detail-property'>
+          <h2>Abilities</h2>
+          {pokemonAbilities.map((item: IPokemonAbilities, index: number) => {
+          return <Ability
+            key={index}
+            ability={item}
+          />;
+          })}
+        </section>
+        <section className='detail-property'>            
+          <h2>Types</h2>
+          {pokemonTypes.map((item: IPokemonTypes, index: number) => {
+          return <Type
+            key={index}
+            type={item}
+          />;
+          })}
+        </section>
+        <section className='detail-property'>            
+          <h2>Evolution</h2>
+          <div className='detail-evolution'>
+          {pokemonFirst ? <div className='detail-evolution-sub'>{pokemonFirst.toLocaleUpperCase()}</div> : <></>}
+          {pokemonSecond ? <div className='detail-evolution-sub'>{pokemonSecond.toLocaleUpperCase()}</div> : <></>}
+          {pokemonThird ?<div className='detail-evolution-sub'>{pokemonThird.toLocaleUpperCase()}</div> : <></>}
+          </div>
+        </section>
+        <div className='detail-order'>order nbr: {pokemonOrder}</div>
+      </div>
+      :
+      <div>not authenticated</div>
+      }
+      </AuthContext.Consumer>
     );
 }
 export default DetailView;
