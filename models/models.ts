@@ -1,3 +1,8 @@
+export interface IAuth {
+    auth: boolean;
+    pw: string;
+}
+
 export interface IPokemonMoves {
     move: {
         name: string;

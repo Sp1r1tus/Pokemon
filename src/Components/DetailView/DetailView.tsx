@@ -7,7 +7,6 @@ import {CircularProgress } from '@material-ui/core';
 import Ability from '../Ability/Ability';
 import Type from '../Type/Type';
 import Stats from '../Stats/Stats';
-import AuthContext from '../../context/auth-context';
 
 import './DetailView.css';
 
@@ -18,6 +17,7 @@ interface IDetailViewProps {
 }
 
 const DetailView: React.FC <IDetailViewProps> = ({ match }) => {
+
     const [pokemonPicture, setPokemonPicture] = useState<IPokemonPicture>({});
     const [pokemonAbilities, setPokemonAbilities] = useState<IPokemonAbilities[]>([]);
     const [pokemonTypes, setPokemonTypes] = useState<IPokemonTypes[]>([]);
@@ -48,9 +48,9 @@ const DetailView: React.FC <IDetailViewProps> = ({ match }) => {
       };
       loadDetails();   
     }, [match.params.name]);
+
+
     return (
-      <AuthContext.Consumer>{context => context.authenticated
-      ?
       <div className='detail-card'>
         <h1>{match.params.name.toLocaleUpperCase()}</h1>
         <Suspense fallback={<div><CircularProgress /></div>}>
@@ -103,10 +103,6 @@ const DetailView: React.FC <IDetailViewProps> = ({ match }) => {
         </section>
         <div className='detail-order'>order nbr: {pokemonOrder}</div>
       </div>
-      :
-      <div>not authenticated</div>
-      }
-      </AuthContext.Consumer>
     );
 }
 export default DetailView;
