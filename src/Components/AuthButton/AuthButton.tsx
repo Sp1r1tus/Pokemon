@@ -1,11 +1,12 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { RootDispatcher } from '../../store/root-reducer';
+// import { RootDispatcher } from '../../store/root-reducer';
 import Config from '../../config.json';
 import { useSelector, shallowEqual } from 'react-redux';
 import { Ireducers } from '../../store/root-reducer'
 // import { InitialState } from '../../store/root-reducer'
 import * as CaptionType from '../AuthButton/AuthButtonCaption';
+import {updateAuthAction} from '../../store/actions/actions';
 
 interface IButtonProps {
     buttonCaption: string;
@@ -22,19 +23,22 @@ const AuthButton: React.FC <IButtonProps> = ({ buttonCaption }) => {
   },shallowEqual);
 
   const dispatch = useDispatch();
-  const rootDispatcher = new RootDispatcher(dispatch);
+  //const rootDispatcher = new RootDispatcher(dispatch);
 
   const clickHandler = () => {
 
       if (buttonCaption === CaptionType.LOGIN) {
         if (Config.PASSWORD === pw) {
-          rootDispatcher.updateAuth(true)
+          //rootDispatcher.updateAuth(true)
+          dispatch(updateAuthAction(true))
         }
         else {
-          rootDispatcher.updateAuth(false)
+          //rootDispatcher.updateAuth(false)
+          dispatch(updateAuthAction(false))
         }
       } else if (buttonCaption === CaptionType.LOGOUT) {
-          rootDispatcher.updateAuth(false)
+          // rootDispatcher.updateAuth(false)
+          dispatch(updateAuthAction(false))
         }
       }
   

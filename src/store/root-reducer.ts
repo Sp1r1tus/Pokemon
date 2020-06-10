@@ -1,7 +1,9 @@
-import { Action, Reducer, Dispatch, combineReducers } from 'redux';
+import { Action, Reducer, combineReducers } from 'redux';
+// import { Dispatch } from 'redux';
 import { authReducer, IinitialAuthState } from './reducers/authReducer';
 import { pwReducer, IinitialPwState } from './reducers/pwReducer'
 import { ActionType } from './enums'
+// import { updateAuthAction, updatePwAction } from './actions/actions'
 
 export interface Ireducers {
     authReducer: IinitialAuthState;
@@ -40,12 +42,13 @@ export interface DispatchAction extends Action<ActionType> {
     payload: Partial<InitialState>;
 }
 
-export class RootDispatcher {
+// with no RootDispatcher 
+/* export class RootDispatcher {
     private readonly dispatch: Dispatch<DispatchAction>;
     constructor(dispatch: Dispatch<DispatchAction>){
         this.dispatch = dispatch; 
     }
 
-    updateAuth = (auth: boolean) => this.dispatch({ type: ActionType.UpdateAuth, payload: { auth } });
-    updatePassword = (pw: string) => this.dispatch({ type: ActionType.UpdatePassword, payload: { pw }});
-}
+    updateAuth = (auth: boolean) => this.dispatch(updateAuthAction(auth));
+    updatePassword = (pw: string) => this.dispatch(updatePwAction(pw));
+} */

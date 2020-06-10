@@ -1,18 +1,20 @@
 import React, { ChangeEvent } from 'react';
 import Aux from '../../hoc/Aux';
 import { useDispatch } from 'react-redux';
-import { RootDispatcher } from '../../store/root-reducer';
+// import { RootDispatcher } from '../../store/root-reducer';
 import AuthButton from '../AuthButton/AuthButton';
 import './Authentification.css';
 import { LOGIN } from '../AuthButton/AuthButtonCaption';
+import {updatePwAction} from '../../store/actions/actions';
 
 const Authentification: React.FC = () => {
      
     const dispatch = useDispatch();
-    const rootDispatcher = new RootDispatcher(dispatch);
+    //const rootDispatcher = new RootDispatcher(dispatch);
 
     const changeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        rootDispatcher.updatePassword(e.target.value);
+      //  rootDispatcher.updatePassword(e.target.value);
+      dispatch(updatePwAction(e.target.value))
     };
 
     return (
