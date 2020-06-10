@@ -4,23 +4,26 @@ import PokemonList from './Components/PokemonList/PokemonList';
 import { BrowserRouter, Route } from 'react-router-dom';
 import DetailView from './Components/DetailView/DetailView';
 import Config from './config.json';
-import { IPokemon, IAuth } from '../models/models';
+import { IPokemon } from '../models/models';
 import Aux from './hoc/Aux';
 import Modal from './UI/Modal/Modal';
 import Authentification from './Components/Authentification/Authentification';
 import { useSelector, shallowEqual } from 'react-redux';
-import { InitialState } from './store/root-reducer';
-
+import { Ireducers } from './store/root-reducer';
+// import { InitialState } from './store/root-reducer';
 
 const App: React.FC = () => {
   const [pokemons, setPokemons] = useState<IPokemon[]>([]);
 
-  const { auth } = useSelector<InitialState, IAuth>((state: InitialState) => {
+  const authorization = useSelector<Ireducers>((state: Ireducers) => {
+    return state.authReducer.auth
+  },shallowEqual); 
+
+/*   const authorization = useSelector<InitialState>((state: InitialState) => {
     return {
-      auth: state.auth,
-      pw: state.pw
+      authorization: state.auth
     }
-  },shallowEqual);
+  },shallowEqual);  */
 
   useEffect(() => {
     const loadData = async () => {
@@ -32,9 +35,10 @@ const App: React.FC = () => {
   }, []);
 
   return (
+  
     <Aux>
-      <Modal hide={auth}>
-      <Authentification />
+      <Modal hide={authorization}>
+        <Authentification />
       </Modal>
       <BrowserRouter>
         <Route exact={true} path='/'><PokemonList pokemons={pokemons}/></Route>

@@ -1,8 +1,9 @@
 import React from 'react';
 import Pokemon from '../Pokemon/Pokemon';
-import { IPokemon, IAuth } from '../../../models/models';
+import { IPokemon } from '../../../models/models';
 import { useSelector, shallowEqual } from 'react-redux';
-import { InitialState } from '../../store/root-reducer';
+import { Ireducers } from '../../store/root-reducer';
+// import { InitialState } from '../../store/root-reducer';
 import AuthButton from '../AuthButton/AuthButton';
 import { LOGOUT } from '../AuthButton/AuthButtonCaption';
 
@@ -12,32 +13,34 @@ interface IPokemonListProps {
 
 const PokemonList: React.FC <IPokemonListProps> = ({ pokemons }) => {
 
-  const { auth } = useSelector<InitialState, IAuth>((state: InitialState) => {
-    return {
-      auth: state.auth,
-      pw: state.pw
-    }
+/*   const auth = useSelector<InitialState>((state: InitialState) => {
+    return state.auth
+  },shallowEqual); */
+
+  const auth = useSelector<Ireducers>((state: Ireducers) => {
+    return state.authReducer.auth
   },shallowEqual);
-    if (auth) {
-      if (pokemons) {
-        return (
-          <>
-            <AuthButton buttonCaption={LOGOUT} />
-            <h1>List of all Pokemons</h1>
-            {pokemons.map((item: IPokemon, index: number) => {
-              return <Pokemon
-                key={index}
-                pokemon={item}
-              />;
-            })}
-          </>
-        );
-      } else {
-        return (<h1>loading...</h1>)
-      }
+
+  if (auth) {
+    if (pokemons) {
+      return (
+        <>
+          <AuthButton buttonCaption={LOGOUT} />
+          <h1>List of all Pokemons</h1>
+          {pokemons.map((item: IPokemon, index: number) => {
+            return <Pokemon
+              key={index}
+              pokemon={item}
+            />;
+          })}
+        </>
+      );
     } else {
-      return ( <div>Authentification is {auth.toString()}</div>)
+      return (<h1>loading...</h1>)
     }
+  } else {
+    return ( <div>Authentification is false</div>)
+  }
 
 }
 export default PokemonList;

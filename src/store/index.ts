@@ -1,9 +1,9 @@
-import { DispatchAction, InitialState, rootReducer } from './root-reducer';
+import { rootReducer, DispatchAction, Ireducers } from './root-reducer';
 import { createStore, applyMiddleware, compose} from 'redux';
 import { logger } from './logger';
-
+// import { InitialState } from './root-reducer';
 const composeEnhancers = (window && (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose
 
-export const store = createStore<InitialState, DispatchAction, any, null>(
+export const store = createStore<Ireducers, DispatchAction, any, null>(
     rootReducer, 
     composeEnhancers(applyMiddleware(logger)));

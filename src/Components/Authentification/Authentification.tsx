@@ -7,6 +7,7 @@ import './Authentification.css';
 import { LOGIN } from '../AuthButton/AuthButtonCaption';
 
 const Authentification: React.FC = () => {
+     
     const dispatch = useDispatch();
     const rootDispatcher = new RootDispatcher(dispatch);
 
