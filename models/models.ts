@@ -32,6 +32,7 @@ export interface IPokemonTypes {
 }
 
 export interface IPokemon {
+    id: string;
     name: string;
     url: string;
 }

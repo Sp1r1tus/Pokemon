@@ -7,6 +7,8 @@ import Config from './config.json';
 import { IPokemon } from '../models/models';
 import AuthContext from './context/auth-context';
 import Aux from './hoc/Aux';
+import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
+import { PokemonListGraphQL } from './Components/PokemonListGraphQL/PokemonListGraphQL';
 
 function App(): JSX.Element {
   const [pokemons, setPokemons] = useState<IPokemon[]>([]);
@@ -20,6 +22,12 @@ function App(): JSX.Element {
     };
     loadData();
   }, []);
+
+  const client = new ApolloClient({
+    uri: 'https://graphql-pokemon2.vercel.app',
+    cache: new InMemoryCache()
+  })
+
 
   const loginHandler = () => {
     if (Config.PASSWORD === password) {
@@ -41,14 +49,18 @@ function App(): JSX.Element {
           authenticated: authenticated
         }}
       >
-      <label>Enter Password</label>
-      <input type='password' onChange={(e) => changeHandler(e)}/>
-      <button onClick={loginHandler}>Submit</button>
-      <BrowserRouter>
-        <Route exact={true} path='/'><PokemonList pokemons={pokemons}/></Route>
-        <Route path='/:name' exact component={DetailView}/>
-      </BrowserRouter>
+        <label>Enter Password to see detailed view </label>
+        <input type='password' onChange={(e) => changeHandler(e)}/>
+        <button onClick={loginHandler}>Submit</button>
+        <ApolloProvider client={client}>
+        <BrowserRouter>
+          <Route exact={true} path='/'><PokemonListGraphQL/></Route>
+          <Route path='/:name' exact component={DetailView}/>
+        </BrowserRouter>
+        </ApolloProvider>
       </AuthContext.Provider>
+     
+    
     </Aux>
   );
 }
